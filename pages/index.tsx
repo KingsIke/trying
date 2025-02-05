@@ -17,7 +17,7 @@ import { fetchPageInfo } from '../utils/fetchPageInfo'
 // import { fetchExperiences } from '../utils/fetchExperience'
 import { fetchSkills } from '../utils/fetchSkills'
 import { fetchProjects } from '../utils/fetchProject'
-// import { fetchSocial } from '../utils/fetchSocials'
+import { fetchSocial } from '../utils/fetchSocials'
 // import social from '@/portfolio-kingsike/schemas/social'
 
 
@@ -26,7 +26,7 @@ type Props = {
   // experiences: Experience[];
   skills: SkillInterface [];
   projects: Project[];
-  // socials: Social[]
+  socials: Social[]
 }
 
 
@@ -37,7 +37,7 @@ const Home = (
     //  experiences, 
     skills, 
     projects, 
-    // socials 
+    socials 
     }: Props
 ) => {
   return (
@@ -48,7 +48,7 @@ const Home = (
       </Head>
 
       {/* Header */}
-      {/* <Header socials={socials} /> */}
+       <Header socials={socials} /> 
 
       {/* Hero */}
       
@@ -132,7 +132,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     // const experiences = await fetchExperiences();
     const skills = await fetchSkills();
     const projects = await fetchProjects();
-    // const socials = await fetchSocial();
+    const socials = await fetchSocial();
 
     if (!pageInfo) {
       throw new Error("PageInfo not found");
@@ -144,7 +144,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         // experiences: experiences || [],
         skills: skills || [],
         projects: projects || [],
-        // socials: socials || [],
+        socials: socials || [],
       },
       revalidate: 10,
     };

@@ -48,7 +48,7 @@ export const fetchSkills = async () => {
       // console.log("skill", data)cle
 
       const skills: SkillInterface [] = data.result
-      console.log("skills////////",skills)
+      // console.log("skills////////",skills)
 
     return skills;
     } catch (error) {
