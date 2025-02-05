@@ -35,10 +35,10 @@ const Projects = ({ projects }: Props) => {
                             transition={{ duration: 1.2 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            src={urlFor(project.image).url()}
+                            src={urlFor(project.image.asset._ref).url()} 
 
                             className="h-3/6 w-2/6 sm:h-3/6 sm:w-5/6  md:h-48 md:w-48  pt-12"
-                            alt=""
+                            alt={project.title}
                         />
 
                         <div className='space-y-10 px-0 md:px-10 max-w-6xl'>
@@ -49,29 +49,36 @@ const Projects = ({ projects }: Props) => {
                             </h4>
 
                             <div className='flex items-center space-x-2 justify-center'>
-                                {project?.technologies.map((technology) => (
+            
+{project.technologies?.map((technology, techIndex) => (
+  <div key={techIndex} className="flex items-center space-x-2">
+    {/* Assuming technology has a 'logo' field with an image reference */}
+    {technology.logo?.asset && (
+      <img
+        key={techIndex}
+        src={urlFor(technology.logo.asset._ref).url()} // Use the image reference for the logo
+        className="h-10 w-10"
+        alt={technology.title || 'Technology Logo'}
+      />
+    )}
+    {/* Display the name of the technology if available */}
+    {technology.title && <span className="text-lg">{technology.title}</span>}
+  </div>
+))}
 
-                                    <img
-                                        key={technology._id}
-                                        src={urlFor(technology.image).url()}
-                                        className='h-10 w-10'
-                                        alt=""
-                                    />
-
-                                )
-                                )}
+                                
                             </div>
 
 
 
-                            <p className='text-lg text-center md:text-left'>{project.summary}</p>
+                            {/* <p className='text-lg text-center md:text-left'>{project.summary}</p> */}
                         </div>
                     </div>
                 ))}
 
             </div>
 
-            <div className="w-full absolute top-[60] bg-[#F7AB0A]/10 left-0 h-[400px] -skew-y-12  "></div>
+            {/* <div className="w-full absolute top-[60] bg-[#F7AB0A]/10 left-0 h-[400px] -skew-y-12  "></div> */}
         </motion.div >
 
     )

@@ -20,12 +20,12 @@ const Contact = ({ }) => {
     };
 
     return (
-        <div className=" h-screen flex relative flex-col md:text-left md:flex-row max-w-7xl  justify-evenly mx-auto items-center sm: text-xs ">
-            <h3 className="  absolute top-14 uppercase tracking-[20px]  text-yellow-600 text-2xl ">Contact</h3>
+        <div className=" h-screen flex relative flex-col md:text-left md:flex-row max-w-7xl  justify-evenly mx-auto items-center sm: text-xs">
+            <h3 className="  absolute top-14 uppercase tracking-[20px]  text-yellow-600 text-2xl">Contact</h3>
 
             <div className="flex flex-col space-y-10 pt-10 " >
 
-                <h4 className="text-xl sm:text-4xl font-semibold text-center leading-10">You can contact me ☎️ <br />
+                <h4 className="text-xl sm:text-4xl font-semibold text-center leading-10  bg-blue-600">You can contact me ☎️ <br />
                     <span className="decoration-[#F7AB0A]/50 underline inline-block align-middle"> Don&apos;t Forget I&apos;m the Right Person</span>
                 </h4>
 

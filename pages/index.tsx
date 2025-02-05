@@ -12,28 +12,33 @@ import Contact from '../components/Contact/Contact'
 import Link from 'next/link'
 // import { type } from 'os'
 
-import { Experience, PageInfo, Project, Skill, Social } from '../typings'
+import { Experience, PageInfo, Project, SkillInterface , Social } from '../typings'
 import { fetchPageInfo } from '../utils/fetchPageInfo'
-import { fetchExperiences } from '../utils/fetchExperience'
+// import { fetchExperiences } from '../utils/fetchExperience'
 import { fetchSkills } from '../utils/fetchSkills'
 import { fetchProjects } from '../utils/fetchProject'
-import { fetchSocial } from '../utils/fetchSocials'
+// import { fetchSocial } from '../utils/fetchSocials'
 // import social from '@/portfolio-kingsike/schemas/social'
 
 
 type Props = {
   pageInfo: PageInfo;
-  experiences: Experience[];
-  skills: Skill[];
+  // experiences: Experience[];
+  skills: SkillInterface [];
   projects: Project[];
-  socials: Social[]
+  // socials: Social[]
 }
 
 
 // const inter = Inter({ subsets: ['latin'] })
 
 const Home = (
-  { pageInfo, experiences, skills, projects, socials }: Props
+  { pageInfo,
+    //  experiences, 
+    skills, 
+    projects, 
+    // socials 
+    }: Props
 ) => {
   return (
     <div className='bg-[rgb(21,21,21)] text-white h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80'>
@@ -43,38 +48,39 @@ const Home = (
       </Head>
 
       {/* Header */}
-      <Header socials={socials} />
-      {/* Hero */}
+      {/* <Header socials={socials} /> */}
 
-      <section id="hero" className='snap-start'>
+      {/* Hero */}
+      
+       <section id="hero" className='snap-start'>
         <Hero
           pageInfo={pageInfo}
         />
-      </section>
+      </section> 
 
       {/* About */}
-      <section id='about' className='snap-center'>
+       <section id='about' className='snap-center'>
         <About
           pageInfo={pageInfo}
         />
-      </section>
+      </section> 
 
       {/* Experience */}
-      <section id='experience' className='snap-center'>
+      {/* <section id='experience' className='snap-center'>
         <WorkExperience experiences={experiences} />
-      </section>
+      </section> */}
 
       {/* Skill */}
 
-      <section id='skills' className='snap-center'>
+       <section id='skills' className='snap-center'>
         <Skills skills={skills} />
-      </section>
+      </section> 
 
       {/* Projects */}
-      <section id='projects' className='snap-center'>
+       <section id='projects' className='snap-center'>
         <Projects projects={projects} />
 
-      </section>
+      </section> 
 
       {/* Contact Me */}
       <section id="contact" className='snap-center'>
@@ -98,21 +104,54 @@ const Home = (
 }
 export default Home
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const pageInfo: PageInfo = await fetchPageInfo()
-  const experiences: Experience[] = await fetchExperiences()
-  const skills: Skill[] = await fetchSkills()
-  const projects: Project[] = await fetchProjects()
-  const socials: Social[] = await fetchSocial()
+// export const getStaticProps: GetStaticProps<Props> = async () => {
+//   const pageInfo: PageInfo = await fetchPageInfo()
+//   const experiences: Experience[] = await fetchExperiences()
+//   const skills: Skill[] = await fetchSkills()
+//   const projects: Project[] = await fetchProjects()
+//   const socials: Social[] = await fetchSocial()
 
-  return {
-    props: {
-      pageInfo,
-      experiences,
-      skills,
-      projects,
-      socials
-    },
-    revalidate: 10,
+//   return {
+//     props: {
+//       pageInfo,
+//       experiences,
+//       skills,
+//       projects,
+//       socials
+//     },
+//     revalidate: 10,
+//   }
+// }
+
+
+
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  try {
+    const pageInfo = await fetchPageInfo();
+    // const experiences = await fetchExperiences();
+    const skills = await fetchSkills();
+    const projects = await fetchProjects();
+    // const socials = await fetchSocial();
+
+    if (!pageInfo) {
+      throw new Error("PageInfo not found");
+    }
+
+    return {
+      props: {
+        pageInfo,
+        // experiences: experiences || [],
+        skills: skills || [],
+        projects: projects || [],
+        // socials: socials || [],
+      },
+      revalidate: 10,
+    };
+  } catch (error) {
+    console.error("Error in getStaticProps:", error);
+    return {
+      notFound: true, // Show a 404 page if an error occurs
+    };
   }
 }
