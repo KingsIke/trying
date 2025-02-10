@@ -2,13 +2,16 @@ import { Experience } from '../typings'
 import { motion } from 'framer-motion'
 import React from 'react'
 import { urlFor } from '../sanity'
+import { SkillInterface  as SkillType } from '../typings'
+
 // import skill from '@/portfolio-kingsike/schemas/skill'
 
 type Props = {
     experience: Experience
+    skills: SkillType[]
 }
 
-const ExperienceCard = ({ experience }: Props) => {
+const ExperienceCard = ({ experience, skills }: Props) => {
     return (
         <article className="mt-24 h-4/5 w-fit space-y-1 sm:mt-0 sm:flex sm:flex-col  rounded-lg item-center sm:space-y-7 flex-shrink-0 sm:w-[400px] sm:h-fit  md:w-[500px] md:h-fit xl:w-[600px] xl:h-fit  xl:space-y-1 snap-center bg-[#421f6f]   hover:opacity-100 opacity-40 cursor-pointer transition-opacity duration-200 overflow-hidden ">
             <motion.img
@@ -28,13 +31,43 @@ const ExperienceCard = ({ experience }: Props) => {
                 <h4 className='text-xl sm:text-4xl font-light'> {experience.jobTitle}</h4>
                 <p className='mt-0 text-md sm:font-bold sm:text-2xl sm:mt-1'>{experience.company}</p>
                 <div className='flex space-x-2 my-2'>
-                    {/* {experience.technologies.map((technology) => (
+                     {/* {experience.technologies.map((technology) => (
                         <img
                             key={technology._id}
                             className="h-5 w-5 sm:h-10 sm:w-10 rounded-full"
                             src={urlFor(technology.image).url()}
                         />
-                    ))} */}
+                    ))}  */}
+
+
+{experience.technologies?.map((technology, techIndex) => {
+
+const matchingSkill = skills.find(skill => skill._id === technology._id);
+
+return (
+  <div key={techIndex} >
+//   className="flex items-center space-x-2"
+  
+    {matchingSkill?.image?.asset?._ref ? (
+      <img
+        src={urlFor(matchingSkill.image.asset._ref).url()}
+        // className="h-10 w-10"
+        alt={technology.title || 'Technology Logo'}
+      />
+    ) : technology.logo?.asset?._ref ? (
+      <img
+        src={urlFor(technology.logo.asset._ref).url()}
+        // className="h-10 w-10"
+        alt={technology.title || 'Technology Logo'}
+      />
+    ) : null}
+
+
+    {technology.title && <span className="text-lg">{technology.title}</span>}
+  </div>
+);
+})}
+
                     {/* {experience.technologies.image && (
                         <img src={urlFor(experience.technologies.image).url()} alt="" />
 

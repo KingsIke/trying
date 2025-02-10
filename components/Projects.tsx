@@ -3,13 +3,14 @@ import { urlFor } from '../sanity'
 import { motion } from 'framer-motion'
 import React from 'react'
 import { Project } from '../typings'
-
+import { SkillInterface  as SkillType } from '../typings'
 
 type Props = {
-    projects: Project[]
+    projects: Project[],
+    skills: SkillType[]
 }
 
-const Projects = ({ projects }: Props) => {
+const Projects = ({ projects,skills }: Props) => {
 
     return (
 
@@ -40,6 +41,8 @@ const Projects = ({ projects }: Props) => {
                             className="h-3/6 w-2/6 sm:h-3/6 sm:w-5/6  md:h-48 md:w-48  pt-12"
                             alt={project.title}
                         />
+  
+
 
                         <div className='space-y-10 px-0 md:px-10 max-w-6xl'>
 
@@ -50,43 +53,66 @@ const Projects = ({ projects }: Props) => {
 
                             <div className='flex items-center space-x-2 justify-center'>
             
-{project.technologies?.map((technology, techIndex) => (
+{/* {project.technologies?.map((technology, techIndex) => (
   <div key={techIndex} className="flex items-center space-x-2">
-    {/* Assuming technology has a 'logo' field with an image reference */}
+   
     {technology.logo?.asset && (
       <img
         key={techIndex}
-        src={urlFor(technology.logo.asset._ref).url()} // Use the image reference for the logo
+        src={urlFor(technology.logo.asset._ref).url()} 
         className="h-10 w-10"
         alt={technology.title || 'Technology Logo'}
       />
     )}
-    {/* Display the name of the technology if available */}
+   
     {technology.title && <span className="text-lg">{technology.title}</span>}
   </div>
-))}
+))} */}
+
+{project.technologies?.map((technology, techIndex) => {
+
+  const matchingSkill = skills.find(skill => skill._id === technology._id);
+
+  return (
+    <div key={techIndex} className="flex items-center space-x-2">
+    
+      {matchingSkill?.image?.asset?._ref ? (
+        <img
+          src={urlFor(matchingSkill.image.asset._ref).url()}
+          className="h-10 w-10"
+          alt={technology.title || 'Technology Logo'}
+        />
+      ) : technology.logo?.asset?._ref ? (
+        <img
+          src={urlFor(technology.logo.asset._ref).url()}
+          className="h-10 w-10"
+          alt={technology.title || 'Technology Logo'}
+        />
+      ) : null}
+
+  
+      {technology.title && <span className="text-lg">{technology.title}</span>}
+    </div>
+  );
+})}
+
 
                                 
                             </div>
 
 
 
-                            {/* <p className='text-lg text-center md:text-left'>{project.summary}</p> */}
+                            <p className='text-lg text-center md:text-left'>{project.summary}</p>
                         </div>
                     </div>
                 ))}
 
             </div>
 
-            {/* <div className="w-full absolute top-[60] bg-[#F7AB0A]/10 left-0 h-[400px] -skew-y-12  "></div> */}
+            <div className="w-full absolute top-[60] bg-[#F7AB0A]/10 left-0 h-[400px] -skew-y-12  "></div>
         </motion.div >
 
     )
 }
 export default Projects
 
-// w-screen flex-shrink-0 snap-center flex flex-col space-y-5 items-center justify-center p-20 md:p-44 h-screen md:flex-shrink-0
-
-// h-2/6 w-1/6 sm:h-2/6 sm:w-2/6  md:h-48 md:w-48
-
-// lg:w-1/4

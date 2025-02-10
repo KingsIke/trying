@@ -14,7 +14,7 @@ import Link from 'next/link'
 
 import { Experience, PageInfo, Project, SkillInterface , Social } from '../typings'
 import { fetchPageInfo } from '../utils/fetchPageInfo'
-// import { fetchExperiences } from '../utils/fetchExperience'
+import { fetchExperiences } from '../utils/fetchExperience'
 import { fetchSkills } from '../utils/fetchSkills'
 import { fetchProjects } from '../utils/fetchProject'
 import { fetchSocial } from '../utils/fetchSocials'
@@ -23,7 +23,7 @@ import { fetchSocial } from '../utils/fetchSocials'
 
 type Props = {
   pageInfo: PageInfo;
-  // experiences: Experience[];
+  experiences: Experience[];
   skills: SkillInterface [];
   projects: Project[];
   socials: Social[]
@@ -34,7 +34,7 @@ type Props = {
 
 const Home = (
   { pageInfo,
-    //  experiences, 
+     experiences, 
     skills, 
     projects, 
     socials 
@@ -66,9 +66,9 @@ const Home = (
       </section> 
 
       {/* Experience */}
-      {/* <section id='experience' className='snap-center'>
+       <section id='experience' className='snap-center'>
         <WorkExperience experiences={experiences} />
-      </section> */}
+      </section> 
 
       {/* Skill */}
 
@@ -78,7 +78,7 @@ const Home = (
 
       {/* Projects */}
        <section id='projects' className='snap-center'>
-        <Projects projects={projects} />
+        <Projects projects={projects} skills={skills} />
 
       </section> 
 
@@ -129,7 +129,7 @@ export default Home
 export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
     const pageInfo = await fetchPageInfo();
-    // const experiences = await fetchExperiences();
+    const experiences = await fetchExperiences();
     const skills = await fetchSkills();
     const projects = await fetchProjects();
     const socials = await fetchSocial();
@@ -141,7 +141,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     return {
       props: {
         pageInfo,
-        // experiences: experiences || [],
+        experiences: experiences || [],
         skills: skills || [],
         projects: projects || [],
         socials: socials || [],
