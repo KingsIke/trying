@@ -48,7 +48,14 @@ export const fetchSkills = async () => {
       // console.log("skill", data)cle
 
       const skills: SkillInterface [] = data.result
-      // console.log("skills////////",skills)
+      const image = skills.map((a)=>{
+        return a.image.asset
+      })
+      console.log("skills////////",skills)
+      console.log("ooooooo////////",image)
+
+
+
 
     return skills;
     } catch (error) {

@@ -30,6 +30,8 @@ export interface Technology extends SanityBody {
   logo: Image;
   progress: number;
   title: string;
+  _ref?: string;
+ 
 }
 
 export interface SkillInterface  extends SanityBody {

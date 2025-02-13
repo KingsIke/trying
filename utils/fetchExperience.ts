@@ -47,12 +47,12 @@ export const fetchExperiences = async () => {
       // console.log("experience", data)
   
       const experiences: Experience[] = data.result
-      console.log("let do",experiences)
+      // console.log("let do",experiences)
       const like = experiences.map((tech) => {
 const first = tech.technologies
 return first
       })
-      console.log(like)
+      console.log("sgttd",like)
   
   
       return experiences;

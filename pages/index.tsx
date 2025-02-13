@@ -67,7 +67,7 @@ const Home = (
 
       {/* Experience */}
        <section id='experience' className='snap-center'>
-        <WorkExperience experiences={experiences} />
+        <WorkExperience experiences={experiences}  skills={skills}/>
       </section> 
 
       {/* Skill */}
