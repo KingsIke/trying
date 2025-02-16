@@ -43,6 +43,7 @@ export const fetchSocial = async () => {
       const data = await res.json();
       // console.log("social", data)
       const socials: Social[] = data.result
+      // console.log("socail...........",socials)
 
       return socials;
     } catch (error) {

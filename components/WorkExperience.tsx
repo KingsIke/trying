@@ -1,13 +1,14 @@
-import { Experience } from '../typings'
+import { Experience, SkillInterface as SkillType } from '../typings'
 import { motion } from 'framer-motion'
 import React from 'react'
 import ExperienceCard from './ExperienceCard'
 
 type Props = {
-    experiences: Experience[]
+    experiences: Experience[],
+    skills: SkillType[]
 }
 
-const WorkExperience = ({ experiences }: Props) => {
+const WorkExperience = ({ experiences, skills }: Props) => {
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -20,10 +21,10 @@ const WorkExperience = ({ experiences }: Props) => {
                 Experience
             </h3>
 
-            <div className='w-full flex space-x-5 overflow-x-scroll p-10 snap-x snap-mandatory  scrollbar-thin 
+            <div className='w-full flex space-x-5 overflow-x-scroll p-10 snap-x snap-mandatory scrollbar-thin 
      scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/70'>
                 {experiences.map((experience) => (
-                    <ExperienceCard key={experience._id} experience={experience} />
+                    <ExperienceCard key={experience._id} experience={experience} skills={skills} />
                 ))}
 
             </div>
@@ -32,8 +33,4 @@ const WorkExperience = ({ experiences }: Props) => {
     )
 }
 
-export default WorkExperience
-
-// pt - 2 space - x - 1 sm:space-x-5 sm:p-5
-
-// className = 'w-full  flex space-x-5 overflow-x-scroll p-10  snap-mandatory snap-x '
+export default WorkExperience;

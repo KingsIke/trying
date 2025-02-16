@@ -143,7 +143,12 @@ export const fetchProjects = async (): Promise<Project[]> => {
         "technologies": technologies[]->{
           _id,
           name,
-          "logo": logo.asset->_ref
+          logo {
+            asset->{
+              _id,
+              url
+            }
+          }
         },
         image
       }`
