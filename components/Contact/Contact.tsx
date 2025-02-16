@@ -69,4 +69,3 @@ const Contact = ({ }) => {
 }
 export default Contact
 
-// border-dashed border-5 border-sky-500
